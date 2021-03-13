@@ -25,7 +25,8 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigment.component';
 import { AuthGuard } from './shared/auth.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './shared/auth-interceptor.service';
 
 const routes:Routes = [
   {
@@ -73,7 +74,9 @@ const routes:Routes = [
     MatSlideToggleModule,
     RouterModule.forRoot(routes), HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
