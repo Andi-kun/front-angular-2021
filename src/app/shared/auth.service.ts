@@ -1,34 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  loggedIn = false;
-  admin = false;
 
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
-  logIn(login, password) {
-    // typiquement, acceptera en paramètres un login et un password
-    // vérifier qu'ils sont ok, et si oui, positionner la propriété loggedIn à true
-    // si login/password non valides, positionner à false;
-
-    if (login === 'admin') this.admin = true;
-
-    this.loggedIn = true;
+  login(login: string, password: string): Observable<boolean> {
+    return this.http.post<{token: string}>('/api/auth', {login: login, password: password})
+      .pipe(
+        map(result => {
+          localStorage.setItem('access_token', result.token);
+          return true;
+        })
+      );
   }
 
-  logOut() {
-    this.loggedIn = false;
-    this.admin = false;
+  logout() {
+    localStorage.removeItem('access_token');
   }
 
-  // exemple d'utilisation :
-  // isAdmin.then(admin => { console.log("administrateur : " + admin);})
-  isAdmin() {
-    return new Promise((resolve, reject) => {
-      resolve(this.admin);
-    });
+  public get loggedIn(): boolean {
+    return (localStorage.getItem('access_token') !== null);
   }
 }
