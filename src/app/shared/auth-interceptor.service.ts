@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'; // imports the class that provides l
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { catchError, filter, take, switchMap } from "rxjs/operators";
 import { Observable, throwError } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,11 @@ import { Observable, throwError } from 'rxjs';
 
 export class AuthInterceptorService implements HttpInterceptor {
 
+  constructor(private authService: AuthService){}
+
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log("Interception In Progress"); 
-    const token: string = localStorage.getItem('token'); 
+    const token: string = localStorage.getItem('access_token'); 
     req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
     req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
@@ -22,6 +25,8 @@ export class AuthInterceptorService implements HttpInterceptor {
                 
                 if (error && error.status === 401) {
                     console.log("ERROR 401 UNAUTHORIZED");
+                    this.authService.logout();
+                    location.reload(true);
                 }
                 const err = error.error.message || error.statusText;
                 return throwError(error);                  

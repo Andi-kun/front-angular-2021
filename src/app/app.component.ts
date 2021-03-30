@@ -21,12 +21,12 @@ export class AppComponent {
     if(this.authService.loggedIn) {
       // je suis loggé
       // et bien on se déloggue
-      this.authService.logOut();
+      this.authService.logout();
       // on navigue vers la page d'accueil
       this.router.navigate(["/home"]);
     } else {
       // je ne suis pas loggé, je me loggue
-      this.authService.logIn("admin", "toto");
+      this.authService.login("admin", "toto");
     }
   }
 

@@ -27,26 +27,34 @@ import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigm
 import { AuthGuard } from './shared/auth.guard';
 import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './shared/auth-interceptor.service';
+import { LoginComponent } from './authentication/login/login.component';
 
 const routes:Routes = [
   {
     // indique que http://localhost:4200 sans rien ou avec un "/" à la fin
     // doit afficher le composant AssignmentsComponent (celui qui affiche la liste)
     path:"",
-    component:AssignmentsComponent
+    component:LoginComponent
+  },
+  {
+    path:"login",
+    component:LoginComponent
   },
   {
     // idem avec  http://localhost:4200/home
     path:"home",
-    component:AssignmentsComponent
+    component:AssignmentsComponent,
+    canActivate : [AuthGuard]
   },
   {
     path:"add",
-    component:AddAssignmentComponent
+    component:AddAssignmentComponent,
+    canActivate : [AuthGuard]
   },
   {
     path:"assignment/:id",
-    component:AssignmentDetailComponent
+    component:AssignmentDetailComponent,
+    canActivate : [AuthGuard]
   },
   {
     path:"assignment/:id/edit",
@@ -62,7 +70,8 @@ const routes:Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssigmentComponent
+    EditAssigmentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
