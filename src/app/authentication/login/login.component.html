@@ -1,14 +1,26 @@
-<h4 *ngIf="error">{{error}}</h4>
-<form (ngSubmit)="login()">
-  <div class="form-group col-3">
-    <label for="username">Username</label>
-    <input type="text" name="username" class="form-control" [(ngModel)]="username" />
-  </div>
-  <div class="form-group col-3">
-    <label for="password">Password</label>
-    <input type="password" name="password" class="form-control" [(ngModel)]="password" />
-  </div>
-  <div class="form-group col-3">
-    <button class="btn btn-primary" type="submit">Login</button>
-  </div>
-</form>
+<div class="container">
+  <mat-card class="login-card">
+    <mat-card-title class="title">
+      <h4>Assignement App</h4>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <form (ngSubmit)="login()" class="content">
+          <mat-form-field>
+            <mat-label><mat-icon [inline]="true">account_box</mat-icon> Login</mat-label>
+            <input matInput required [(ngModel)]="username" name="username">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label><mat-icon [inline]="true">vpn_key</mat-icon> Mot de passe</mat-label>
+            <input matInput required [(ngModel)]="password" name="password">
+          </mat-form-field>
+          <button mat-stroked-button color="primary">
+            Se connecter
+          </button>
+          <mat-error *ngIf="error" class="error">
+            {{error}}
+          </mat-error>
+        </form>
+  </mat-card-content>
+  </mat-card>
+</div>

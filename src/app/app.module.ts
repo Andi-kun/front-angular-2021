@@ -28,6 +28,7 @@ import { AuthGuard } from './shared/auth.guard';
 import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './shared/auth-interceptor.service';
 import { LoginComponent } from './authentication/login/login.component';
+import { MenuComponent } from './menu/menu.component';
 
 const routes:Routes = [
   {
@@ -71,7 +72,8 @@ const routes:Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssigmentComponent,
-    LoginComponent
+    LoginComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
