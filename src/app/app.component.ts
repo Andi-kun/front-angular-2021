@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,11 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.router.url);
-    if (this.router.url === '/login' || this.router.url === '/') {
-        this.showMenu = false;
-    }
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)  
+    ).subscribe((event: NavigationStart) => {
+      this.showMenu = event.url !== '/login' && event.url !== '/';
+    });
   }
 
 }

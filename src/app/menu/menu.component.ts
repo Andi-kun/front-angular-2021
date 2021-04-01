@@ -28,4 +28,9 @@ export class MenuComponent implements OnInit {
         this.router.navigate(["/home"], {replaceUrl:true});
       })
   }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login']);
+  }
 }

@@ -25,10 +25,17 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigment.component';
 import { AuthGuard } from './shared/auth.guard';
+import {AdminGuard } from './shared/admin.guard';
 import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './shared/auth-interceptor.service';
 import { LoginComponent } from './authentication/login/login.component';
 import { MenuComponent } from './menu/menu.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 const routes:Routes = [
   {
@@ -60,8 +67,9 @@ const routes:Routes = [
   {
     path:"assignment/:id/edit",
     component:EditAssigmentComponent,
-    canActivate : [AuthGuard]
-  }
+    canActivate : [AuthGuard,AdminGuard]
+  },
+  { path: '**', redirectTo: 'home'}
 ]
 @NgModule({
   declarations: [
@@ -83,11 +91,16 @@ const routes:Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule,
-    RouterModule.forRoot(routes), HttpClientModule
+    RouterModule.forRoot(routes), HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [environment.apiDomain],
+        disallowedRoutes: [environment.apiUri+'/auth']
+      }
+    })
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

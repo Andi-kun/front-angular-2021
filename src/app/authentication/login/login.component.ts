@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log(this.authService.isAdmin());
+    if(this.authService.loggedIn) this.router.navigate(["/home"]);
   }
 
   login(){
