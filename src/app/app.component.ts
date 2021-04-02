@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AssignmentsService } from './shared/assignments.service';
-import { AuthService } from './shared/auth.service';
+import { NavigationStart, Router } from '@angular/router';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,36 +8,15 @@ import { AuthService } from './shared/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Application de gestion des assignments';
+  showMenu = true;
+  constructor(private router: Router) {}
 
-  constructor(private authService:AuthService, private router:Router,
-              private assignmentsService:AssignmentsService) {}
-
-  login() {
-    // si je suis pas loggé, je me loggue, sinon, si je suis
-    // loggé je me déloggue et j'affiche la page d'accueil
-
-    if(this.authService.loggedIn) {
-      // je suis loggé
-      // et bien on se déloggue
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(["/home"]);
-    } else {
-      // je ne suis pas loggé, je me loggue
-      this.authService.logIn("admin", "toto");
-    }
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)  
+    ).subscribe((event: NavigationStart) => {
+      this.showMenu = event.url !== '/login' && event.url !== '/';
+    });
   }
 
-  peuplerBD() {
-    // version naive et simple
-    //this.assignmentsService.peuplerBD();
-
-    // meilleure version :
-    this.assignmentsService.peuplerBDAvecForkJoin()
-      .subscribe(() => {
-        console.log("LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE");
-        this.router.navigate(["/home"], {replaceUrl:true});
-      })
-  }
 }

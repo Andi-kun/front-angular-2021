@@ -13,7 +13,7 @@
       </nav>
 
 
-      <button mat-stroked-button color="warn" (click)="onDelete()">DELETE</button>
+      <button mat-stroked-button color="warn" [disabled]="!isAdmin()" (click)="onDelete()">DELETE</button>
     </div>
   </mat-card>
 </div>

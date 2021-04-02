@@ -1,34 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  loggedIn = false;
-  admin = false;
+  constructor(private http:HttpClient,public jwtHelper: JwtHelperService) {}
 
-  constructor() {}
-
-  logIn(login, password) {
-    // typiquement, acceptera en paramètres un login et un password
-    // vérifier qu'ils sont ok, et si oui, positionner la propriété loggedIn à true
-    // si login/password non valides, positionner à false;
-
-    if (login === 'admin') this.admin = true;
-
-    this.loggedIn = true;
+  login(login: string, password: string): Observable<boolean> {
+    return this.http.post<{token: string}>(environment.apiUri+'/auth', {login: login, password: password})
+      .pipe(
+        map(result => {
+          localStorage.setItem('access_token', result.token);
+          return true;
+        })
+      );
   }
 
-  logOut() {
-    this.loggedIn = false;
-    this.admin = false;
+  logout() {
+    localStorage.removeItem('access_token');
   }
 
-  // exemple d'utilisation :
-  // isAdmin.then(admin => { console.log("administrateur : " + admin);})
-  isAdmin() {
-    return new Promise((resolve, reject) => {
-      resolve(this.admin);
-    });
+  public get loggedIn(): boolean {
+    return (localStorage.getItem('access_token') !== null && !this.jwtHelper.isTokenExpired());
+  }
+
+  isAdmin() : boolean{
+    let token = localStorage.getItem('access_token');
+    if(token){
+      let user = this.jwtHelper.decodeToken(token);
+      console.log(user.role);
+      if(user.role === "admin") return true;
+    }
+    return false;
   }
 }

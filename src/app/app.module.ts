@@ -25,33 +25,51 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigment.component';
 import { AuthGuard } from './shared/auth.guard';
-import { HttpClientModule } from '@angular/common/http';
+import {AdminGuard } from './shared/admin.guard';
+import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './shared/auth-interceptor.service';
+import { LoginComponent } from './authentication/login/login.component';
+import { MenuComponent } from './menu/menu.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 const routes:Routes = [
   {
     // indique que http://localhost:4200 sans rien ou avec un "/" à la fin
     // doit afficher le composant AssignmentsComponent (celui qui affiche la liste)
     path:"",
-    component:AssignmentsComponent
+    component:LoginComponent
+  },
+  {
+    path:"login",
+    component:LoginComponent
   },
   {
     // idem avec  http://localhost:4200/home
     path:"home",
-    component:AssignmentsComponent
+    component:AssignmentsComponent,
+    canActivate : [AuthGuard]
   },
   {
     path:"add",
-    component:AddAssignmentComponent
+    component:AddAssignmentComponent,
+    canActivate : [AuthGuard]
   },
   {
     path:"assignment/:id",
-    component:AssignmentDetailComponent
+    component:AssignmentDetailComponent,
+    canActivate : [AuthGuard]
   },
   {
     path:"assignment/:id/edit",
     component:EditAssigmentComponent,
-    canActivate : [AuthGuard]
-  }
+    canActivate : [AuthGuard,AdminGuard]
+  },
+  { path: '**', redirectTo: 'home'}
 ]
 @NgModule({
   declarations: [
@@ -61,7 +79,9 @@ const routes:Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssigmentComponent
+    EditAssigmentComponent,
+    LoginComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +91,14 @@ const routes:Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule,
-    RouterModule.forRoot(routes), HttpClientModule
+    RouterModule.forRoot(routes), HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [environment.apiDomain],
+        disallowedRoutes: [environment.apiUri+'/auth']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
