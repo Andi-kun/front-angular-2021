@@ -1,18 +1,48 @@
-<form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
-  <mat-form-field>
-    <input matInput placeholder="Nom du devoir" required [(ngModel)]="nom" name="nom">
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Choisissez une date</mat-label>
-    <input matInput [matDatepicker]="picker" required [(ngModel)]="dateDeRendu" name="date">
-
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <button mat-stroked-button color="primary">
-    Ajouter un devoir
-  </button>
-</form>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" class="step-container">
+      <ng-template matStepLabel>Informations sur le devoir</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Nom du devoir" [(ngModel)]="nom" name="nom" formControlName="nom" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choisissez une date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" formControlName="date" required>
+    
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choisissez une matière</mat-label>
+        <mat-select [(ngModel)]="matiereId" name="matiereId" formControlName="matiereId" required>
+          <mat-option *ngFor="let matiere of matieres" [value]="matiere.id">{{matiere.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Auteur">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field>
+        <input matInput placeholder="Auteur" [(ngModel)]="auteur" name="auteur" formControlName="auteur" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Précédent</button>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirmation</ng-template>
+    <button mat-stroked-button color="primary" (click)="onSubmit($event);">
+      Ajouter un devoir
+    </button>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

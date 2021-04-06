@@ -3,5 +3,7 @@ export class Assignment {
   id:number;
   nom:string;
   dateDeRendu:Date;
+  matiere: any;
+  auteur:string;
   rendu:boolean;
 }

@@ -14,12 +14,14 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
 
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { NonRenduDirective } from './shared/non-rendu.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -32,6 +34,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -87,10 +90,11 @@ const routes:Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
-    MatSlideToggleModule,
+    MatSlideToggleModule,MatStepperModule,MatSelectModule,
     RouterModule.forRoot(routes), HttpClientModule,
     JwtModule.forRoot({
       config: {
