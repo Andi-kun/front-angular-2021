@@ -19,30 +19,28 @@
           <mat-option *ngFor="let matiere of matieres" [value]="matiere.id">{{matiere.nom}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Suivant</button>
+      <div class="step-btn">
+        <button mat-stroked-button matStepperNext>Suivant</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup" label="Auteur">
-    <form [formGroup]="secondFormGroup">
+    <form [formGroup]="secondFormGroup" class="step-container">
       <mat-form-field>
         <input matInput placeholder="Auteur" [(ngModel)]="auteur" name="auteur" formControlName="auteur" required>
       </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Précédent</button>
-        <button mat-button matStepperNext>Suivant</button>
+      <div class="step-btn">
+        <button mat-stroked-button matStepperPrevious>Précédent</button>
+        <button mat-stroked-button matStepperNext>Suivant</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Confirmation</ng-template>
-    <button mat-stroked-button color="primary" (click)="onSubmit($event);">
-      Ajouter un devoir
-    </button>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+
+    <div class="step-btn">
+      <button mat-stroked-button matStepperPrevious>Précédent</button>
+      <button mat-stroked-button (click)="onSubmit($event);">Ajouter</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
