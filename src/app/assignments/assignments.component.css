@@ -1,8 +1,23 @@
 .container {
   display: flex;
   flex-direction: column;
+  background-color: rgb(59, 141, 130);
 }
 
 .ajouterBtn {
   align-self: flex-end;
+}
+
+.img-circle{
+  border-radius: 50%;
+  width: 50%;
+    /* position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    width: 50%;
+    height: 100%;
+    background-attachment: fixed; */
 }

@@ -14,6 +14,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 import { AssignmentsComponent } from './assignments/assignments.component';
@@ -89,7 +91,7 @@ const routes:Routes = [
     FormsModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
-    MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
+    MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,MatGridListModule,
     MatSlideToggleModule,
     RouterModule.forRoot(routes), HttpClientModule,
     JwtModule.forRoot({
