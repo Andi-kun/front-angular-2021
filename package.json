@@ -23,6 +23,8 @@
     "@angular/router": "~11.2.4",
     "@auth0/angular-jwt": "^5.0.2",
     "express": "^4.17.1",
+    "mobx": "^6.1.8",
+    "mobx-angular": "^4.3.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

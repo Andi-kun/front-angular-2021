@@ -24,10 +24,10 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Auteur">
+  <mat-step [stepControl]="secondFormGroup" label="Elève">
     <form [formGroup]="secondFormGroup" class="step-container">
       <mat-form-field>
-        <input matInput placeholder="Auteur" [(ngModel)]="auteur" name="auteur" formControlName="auteur" required>
+        <input matInput placeholder="Elève" [(ngModel)]="auteur" name="auteur" formControlName="auteur" required>
       </mat-form-field>
       <div class="step-btn">
         <button mat-stroked-button matStepperPrevious>Précédent</button>
@@ -37,7 +37,20 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Confirmation</ng-template>
-
+    <div class="step-container">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar [style.background-image]="'url(assets/img/'+matiere?.image+')'" [style.backgroundSize]="'cover'"></div>
+          <mat-card-title>{{nom}}</mat-card-title>
+          <mat-card-subtitle>{{matiere?.nom}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p><b>Nom du Professeur : </b>{{matiere?.nomProfesseur}}</p>
+          <p><b>Date de rendu : </b>{{dateDeRendu | date}}</p>
+          <p><b>Elève : </b>{{auteur}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <div class="step-btn">
       <button mat-stroked-button matStepperPrevious>Précédent</button>
       <button mat-stroked-button (click)="onSubmit($event);">Ajouter</button>

@@ -1,23 +1,6 @@
 .menu{
-    display:flex;
-    justify-content:flex-end;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     margin-bottom: 20px;
-    padding: 0px 20px 0px 20px;
 }
-.menu-title{
-    margin-right: auto;
-    text-decoration: none;
-}
-
-a{
-    text-decoration: none;
-}
-
-.mat-icon {
-    vertical-align: middle;
-}
-
 .example-spacer {
     flex: 1 1 auto;
 }
