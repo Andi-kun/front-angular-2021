@@ -19,6 +19,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 import { AssignmentsComponent } from './assignments/assignments.component';
@@ -96,7 +98,7 @@ const routes:Routes = [
     ReactiveFormsModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
-    MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
+    MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,MatGridListModule,
     MatSlideToggleModule,MatStepperModule,MatSelectModule,MatToolbarModule,MatTooltipModule,
     MatSnackBarModule,
     RouterModule.forRoot(routes), HttpClientModule,
