@@ -1,8 +1,14 @@
-<h1>
-    <nav>
-      <a routerLink="/home">{{title}}</a>
-    </nav>
-</h1>
-  <button mat-stroked-button color="primary" (click)="peuplerBD()">PeuplerBD</button>
-  <button mat-stroked-button color="primary" (click)="logout()">Se déconnecter</button>
 
+<mat-toolbar color="primary" class="menu">
+  <button mat-icon-button matTooltip="Accueil" aria-label="Accueil" routerLink="/home">
+   <mat-icon>assignment_turned_in</mat-icon>
+ </button>
+ <span>{{title}}</span>
+ <span class="example-spacer"></span>
+ <button mat-icon-button matTooltip="Peupler la base de données" aria-label="Peupler la base de données">
+   <mat-icon>drive_folder_upload</mat-icon>
+ </button>
+ <button mat-icon-button matTooltip="Se déconnecter" aria-label="se déconnecter" (click)="logout()" >
+  <mat-icon>logout</mat-icon>
+</button>
+</mat-toolbar>
