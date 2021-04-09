@@ -6,7 +6,9 @@ import { Assignment } from '../assignment.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Matiere } from 'src/app/shared/matiere.model';
 import { MatieresService } from 'src/app/shared/matieres.service';
+import { ElevesService } from 'src/app/shared/eleves.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Eleve } from 'src/app/shared/eleve.model';
 
 @Component({
   selector: 'app-add-assignment',
@@ -15,9 +17,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class AddAssignmentComponent implements OnInit {
   matieres:Matiere[];
+  eleves:Eleve[];
   // Pour les champs du formulaire
   nom = '';
-  auteur = '';
+  @observable eleveId = null;
   dateDeRendu = null;
   @observable matiereId = null;
   isLinear = true;
@@ -26,10 +29,11 @@ export class AddAssignmentComponent implements OnInit {
   durationInSeconds = 3;
 
   constructor(private _formBuilder: FormBuilder,private assignmentsService:AssignmentsService,
-    private matiereService:MatieresService,private router:Router,private _snackBar: MatSnackBar) {}
+    private matiereService:MatieresService,private elevesService:ElevesService,private router:Router,private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getMatieres();
+    this.getEleves();
     this.firstFormGroup = this._formBuilder.group({
       nom: ['', Validators.required],
       date: ['', Validators.required],
@@ -41,7 +45,11 @@ export class AddAssignmentComponent implements OnInit {
   }
 
   @computed get matiere() : Matiere {
-    return this.matieres.find(m => m.id === this.matiereId);
+    return this.matieres.find(m => m._id === this.matiereId);
+  }
+
+  @computed get eleve() : Eleve {
+    return this.eleves.find(e => e._id === this.eleveId);
   }
 
   openSnackBar(message: string, action: string) {
@@ -63,9 +71,9 @@ export class AddAssignmentComponent implements OnInit {
     let nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.nom;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.auteur = this.auteur;
+    nouvelAssignment.auteur = this.eleveId;
     nouvelAssignment.rendu = false;
-    nouvelAssignment.matiere = this.matieres.find(m => m.id === this.matiereId);
+    nouvelAssignment.matiere = this.matiereId;
 
     this.assignmentsService.addAssignment(nouvelAssignment)
       .subscribe(reponse => {
@@ -82,7 +90,14 @@ export class AddAssignmentComponent implements OnInit {
       this.matieres = data;
       console.log("données reçues");
     });
+  }
 
+  getEleves(){
+    this.elevesService.getEleves().subscribe(data => {
+      console.log(data);
+      this.eleves = data;
+      console.log("données reçues");
+    });
   }
 
 }
