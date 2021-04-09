@@ -4,7 +4,7 @@
       Ajouter un assignment
     </button>
   </a>
-  <h1>Liste des assignments</h1>
+  <h1 style="color: rgb(63 81 181);">Liste des assignments</h1>
   <!-- <mat-divider></mat-divider> -->
   <nav>
     <button mat-raised-button color="primary" (click)="premierePage()">
@@ -20,18 +20,19 @@
       Dernière
     </button>
   </nav>
-
-  <mat-grid-list cols="5" rowHeight="2:2">
+  <br>
+  <mat-grid-list cols="4" rowHeight="3:4" gutterSize="5px" >
     <mat-grid-tile *ngFor="let a of assignments">
-      <mat-card>
-        <a routerLink="/assignment/{{a.id}}">
-          <mat-card-title>
-            <p>{{a.dateDeRendu | date}}</p>
-          </mat-card-title>
-  
+        <!-- <mat-card class = "tp-card" style="background-color: #f8acc6"> -->
+        <!-- <mat-card class = "tp-card" style="background-color: #f8acc6"> -->
+        <mat-card class = "tp-card">
+          <mat-card-header>
+             <mat-card-title>Titre</mat-card-title>
+             <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
+             <div mat-card-avatar class = "tp-header-image" style="background-image: url('https://www.tutorialspoint.com/materialize/src/html5-mini-logo.jpg');float:left;"></div>
+          </mat-card-header>
+          <img mat-card-image src = "/assets/img/1024px-Circle-icons-dev.svg.png" alt = "Learn HTML5">
           <mat-card-content>
-            <img class="img-circle" src="/assets/img/téléchargement.jfif" alt="Photo of a Shiba Inu">
-            <mat-divider></mat-divider>
             <p *ngIf="a.rendu; else nonsoumis" appRendu>
               {{a.nom}}, rendu par l'élève.
             </p>
@@ -40,11 +41,13 @@
                 {{a.nom}}, non encore rendu par l'élève.
               </p>
             </ng-template>
-  
           </mat-card-content>
-        </a>
-      </mat-card>
+          <mat-card-actions>
+            <a routerLink="/assignment/{{a.id}}"><button mat-button>DETAILS</button></a>
+          </mat-card-actions>
+       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
   
 </main>

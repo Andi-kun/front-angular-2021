@@ -97,7 +97,7 @@ const routes:Routes = [
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule, MatDividerModule, MatIconModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule,
+    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatBadgeModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,MatGridListModule,
     MatSlideToggleModule,MatStepperModule,MatSelectModule,MatToolbarModule,MatTooltipModule,
     MatSnackBarModule,
