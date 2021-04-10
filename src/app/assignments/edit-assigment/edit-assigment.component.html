@@ -1,20 +1,84 @@
 <h2>Modification de l'assignment</h2>
 
-<form ngForm #formAssignment class="form" (submit)="onSubmit($event); formAssignment.reset();">
-  <mat-form-field>
-    <input matInput placeholder="Nom du devoir" required [(ngModel)]="nom" name="nom">
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Choisissez une date</mat-label>
-    <input matInput [matDatepicker]="picker" required [(ngModel)]="dateDeRendu" name="date">
-
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <button mat-stroked-button color="primary">
-    Modifier le devoir
-  </button>
-</form>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" class="step-container">
+      <ng-template matStepLabel>Informations sur le devoir</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Nom du devoir" [(ngModel)]="nom" name="nom" formControlName="nom" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choisissez une date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" formControlName="date" required>
+    
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choisissez une matière</mat-label>
+        <mat-select [(ngModel)]="matiereId" name="matiereId" formControlName="matiereId" required>
+          <mat-option *ngFor="let matiere of matieres" [value]="matiere._id">{{matiere.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="step-btn">
+        <button mat-stroked-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Elève">
+    <form [formGroup]="secondFormGroup" class="step-container">
+      <mat-form-field>
+        <mat-label>Choisissez un élève</mat-label>
+        <mat-select [(ngModel)]="eleveId" name="auteur" formControlName="auteur" required>
+          <mat-option *ngFor="let eleve of eleves" [value]="eleve._id">{{eleve.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="step-btn">
+        <button mat-stroked-button matStepperPrevious>Précédent</button>
+        <button mat-stroked-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="thirdFormGroup" class="step-container">
+      <ng-template matStepLabel>Notation</ng-template>
+      <mat-form-field>
+        <mat-label>Note</mat-label>
+        <input matInput type="number" [(ngModel)]="note" placeholder="Ex. 12" formControlName="note" min="0" max="20">
+        <span matSuffix>/20</span>
+        <mat-error *ngIf="thirdFormGroup.invalid">La note doit être comprise entre 0 et 20</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Remarques" [(ngModel)]="remarques" name="remarques" formControlName="remarques">
+      </mat-form-field>
+    </form>
+    <div class="step-btn">
+      <button mat-stroked-button matStepperPrevious>Précédent</button>
+      <button mat-stroked-button matStepperNext>Suivant</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirmation</ng-template>
+    <div class="step-container">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar [style.background-image]="'url(assets/img/'+matiere?.image+')'" [style.backgroundSize]="'cover'"></div>
+          <mat-card-title>{{nom}}</mat-card-title>
+          <mat-card-subtitle>{{matiere?.nom}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p><b>Nom du Professeur : </b>{{matiere?.nomProfesseur}}</p>
+          <p><b>Date de rendu : </b>{{dateDeRendu | date}}</p>
+          <p><b>Elève : </b>{{eleve?.nom}}</p>
+          <p><b>Note : </b>{{note ? note +"/20" : "Aucune"}}</p>
+          <p><b>Remarques : </b>{{remarques ? remarques : "Aucune"}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="step-btn">
+      <button mat-stroked-button matStepperPrevious>Précédent</button>
+      <button mat-stroked-button (click)="onSubmit($event);">Modifier</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

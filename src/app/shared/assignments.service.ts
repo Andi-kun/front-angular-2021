@@ -43,11 +43,6 @@ export class AssignmentsService {
 
     return this.http.get<Assignment>(this.uri + "/" + id)
     .pipe(
-      // traitement 1
-      map(a => {
-        a.nom += " MODIFIE PAR MAP";
-        return a;
-      }),
       tap(a => {
         console.log("TRACE DANS TAP : j'ai reçu " + a.nom);
       }),
