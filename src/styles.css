@@ -2,7 +2,11 @@
 
 html, body { height: 100%; margin: 0; padding: 0; }
 body {font-family: Roboto, "Helvetica Neue", sans-serif; }
-.snackbar-style{
+.snackbar-success-style{
     background-color:#13aa52;
     color:white;
-  }
+}
+
+.snackbar-success-style .mat-simple-snackbar-action  {
+  color: white;
+}

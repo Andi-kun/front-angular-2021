@@ -7,8 +7,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Matiere } from 'src/app/shared/matiere.model';
 import { MatieresService } from 'src/app/shared/matieres.service';
 import { ElevesService } from 'src/app/shared/eleves.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import { Eleve } from 'src/app/shared/eleve.model';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -26,10 +26,9 @@ export class AddAssignmentComponent implements OnInit {
   isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  durationInSeconds = 3;
 
   constructor(private _formBuilder: FormBuilder,private assignmentsService:AssignmentsService,
-    private matiereService:MatieresService,private elevesService:ElevesService,private router:Router,private _snackBar: MatSnackBar) {}
+    private matiereService:MatieresService,private snackBarService : SnackBarService, private elevesService:ElevesService,private router:Router) {}
 
   ngOnInit() {
     this.getMatieres();
@@ -52,21 +51,9 @@ export class AddAssignmentComponent implements OnInit {
     return this.eleves.find(e => e._id === this.eleveId);
   }
 
-  openSnackBar(message: string, action: string) {
-    let snackbar = this._snackBar.open(message, action, {
-       duration: this.durationInSeconds * 1000,
-       verticalPosition: 'bottom',
-       horizontalPosition: 'center',
-       panelClass: ["snackbar-style"]
-    });
-
-    snackbar.onAction().subscribe(() => {
-      snackbar.dismiss();
-    });
- }
 
   onSubmit(event) {
-    if((!this.nom) || (!this.dateDeRendu) || (!this.matiereId)) return;
+    if((!this.nom) || (!this.dateDeRendu) || (!this.matiereId) || (!this.eleveId)) return;
 
     let nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.nom;
@@ -78,7 +65,7 @@ export class AddAssignmentComponent implements OnInit {
     this.assignmentsService.addAssignment(nouvelAssignment)
       .subscribe(reponse => {
         console.log(reponse.message);
-        this.openSnackBar("Devoir crée !","Fermer");
+        this.snackBarService.openSuccessSnackBar("Devoir crée !");
          // et on navigue vers la page d'accueil qui affiche la liste
          this.router.navigate(["/home"]);
       });
