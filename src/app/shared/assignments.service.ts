@@ -6,6 +6,8 @@ import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
 import { assignmentsGeneres } from './data';
 import { environment } from '../../environments/environment';
+import { ElevesService } from './eleves.service';
+import { MatieresService } from './matieres.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ import { environment } from '../../environments/environment';
 export class AssignmentsService {
   assignments:Assignment[];
 
-  constructor(private loggingService:LoggingService, private http:HttpClient) { }
+  constructor(private loggingService:LoggingService, private http:HttpClient, private elevesService : ElevesService, private matieresService: MatieresService) { }
 
   uri = environment.apiUri+"/assignments";
 
@@ -72,12 +74,12 @@ export class AssignmentsService {
     };
   }
 
-  generateId():number {
-    return Math.round(Math.random()*100000);
+  generateRandomNumber(max : number):number {
+    return Math.floor(Math.random()*max);
   }
 
   addAssignment(assignment:Assignment):Observable<any> {
-    assignment.id = this.generateId();
+    assignment.id = this.generateRandomNumber(100000);
     //this.loggingService.log(assignment.nom, " a été ajouté");
 
     /*this.assignments.push(assignment);
@@ -121,6 +123,9 @@ export class AssignmentsService {
       nouvelAssignment.id = a.id;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
+      if(a.rendu){
+        nouvelAssignment.note = this.generateRandomNumber(21);
+      }
 
       this.addAssignment(nouvelAssignment)
       .subscribe(reponse => {
@@ -131,17 +136,26 @@ export class AssignmentsService {
 
   // autre version qui permet de récupérer un subscribe une fois que tous les inserts
   // ont été effectués
-  peuplerBDAvecForkJoin(): Observable<any> {
+  async peuplerBDAvecForkJoin(): Promise<Observable<any>> {
     const appelsVersAddAssignment = [];
-
+    let eleves = await this.elevesService.getEleves().toPromise();
+    let matieres = await this.matieresService.getMatieres().toPromise();
     assignmentsGeneres.forEach((a) => {
+      let eleveId = eleves[this.generateRandomNumber(eleves.length)]._id;
+      let matiereId = matieres[this.generateRandomNumber(matieres.length)]._id;
       const nouvelAssignment = new Assignment();
 
       nouvelAssignment.id = a.id;
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
-
+      nouvelAssignment.auteur = eleveId;
+      nouvelAssignment.matiere = matiereId;
+      if(a.rendu){
+        nouvelAssignment.note = this.generateRandomNumber(21);
+        nouvelAssignment.remarques = nouvelAssignment.note < 15 ? "Vous devez encore faire quelques efforts" : "Très bon travail !";
+      }
+      
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });
     return forkJoin(appelsVersAddAssignment); // renvoie un seul Observable pour dire que c'est fini
