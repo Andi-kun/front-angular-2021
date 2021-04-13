@@ -4,36 +4,34 @@
       Ajouter un assignment
     </button>
   </a>
-  <h1 style="color: rgb(63 81 181);">Liste des assignments</h1>
-  <!-- <mat-divider></mat-divider> -->
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Rendu"> 
-      <nav>
-        <button mat-raised-button color="primary" (click)="premierePage()">
-          Première
-        </button>
-        <button mat-raised-button color="primary" [disabled]="!hasPrevPage" (click)="pagePrecedente()">
-          Prev
-        </button>
-        <button mat-raised-button color="primary" [disabled]="!hasNextPage" (click)="pageSuivante()">
-          Suiv
-        </button>
-        <button mat-raised-button color="primary" (click)="dernierePage()">
-          Dernière
-        </button>
-      </nav>
-      <br>
-      <mat-grid-list cols="4" rowHeight="3:4" gutterSize="5px" >
-        <mat-grid-tile *ngFor="let a of assignments">
-            <!-- <mat-card class = "tp-card" style="background-color: #f8acc6"> -->
-            <!-- <mat-card class = "tp-card" style="background-color: #f8acc6"> -->
-            <mat-card class = "tp-card">
+  <h1 id="color-h1">Liste des assignments</h1>
+  <div class="box">
+    <div class="example-container">
+      <h2>Rendu</h2>
+      <div class="example-list">
+        <nav>
+          <button mat-raised-button color="primary" (click)="premierePageRendu(this.assignmentsRendu)">
+            Première
+          </button>
+          <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="pagePrecedenteRendu(this.assignmentsRendu)">
+            Prev
+          </button>
+          <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="pageSuivanteRendu(this.assignmentsRendu)">
+            Suiv
+          </button>
+          <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="dernierePageRendu(this.assignmentsRendu)">
+            Dernière
+          </button>
+        </nav>
+        <br>
+        <div class="example-box" *ngFor="let a of assignmentsRendu.assignments">
+            <mat-card class = "tp-card" cdkDrag>
               <mat-card-header>
                  <mat-card-title>Titre</mat-card-title>
                  <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
-                 <div mat-card-avatar class = "tp-header-image" style="background-image: url('https://www.tutorialspoint.com/materialize/src/html5-mini-logo.jpg');float:left;"></div>
+                 <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{a.matiere.imageProfesseur}}');float:left;"></div>
               </mat-card-header>
-              <img mat-card-image src = "/assets/img/1024px-Circle-icons-dev.svg.png" alt = "Learn HTML5">
+              <img mat-card-image src = "/assets/img/{{a.matiere.image}}" alt = "Learn HTML5">
               <mat-card-content>
                 <p *ngIf="a.rendu; else nonsoumis" appRendu>
                   {{a.nom}}, rendu par l'élève.
@@ -48,9 +46,55 @@
                 <a routerLink="/assignment/{{a.id}}"><button mat-button>DETAILS</button></a>
               </mat-card-actions>
            </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-tab>
-    <mat-tab label="Pas encore rendu"> Content 2 </mat-tab>
-  </mat-tab-group>
+           <br>
+        </div>
+      </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Non rendu</h2>
+    <div class="example-list">
+      <nav>
+        <button mat-raised-button color="primary" (click)="premierePageNonRendu(this.assignmentsNonRendu)">
+          Première
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasPrevPage" (click)="pagePrecedenteNonRendu(this.assignmentsNonRendu)">
+          Prev
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasNextPage" (click)="pageSuivanteNonRendu(this.assignmentsNonRendu)">
+          Suiv
+        </button>
+        <button mat-raised-button color="primary" (click)="dernierePageNonRendu(this.assignmentsNonRendu)">
+          Dernière
+        </button>
+      </nav>
+      <br>
+      <div *ngFor="let a of assignmentsNonRendu.assignments">
+          <mat-card class = "tp-card" cdkDrag>
+            <mat-card-header>
+               <mat-card-title>Titre</mat-card-title>
+               <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
+               <div mat-card-avatar class = "tp-header-image" style="background-image: url('https://www.tutorialspoint.com/materialize/src/html5-mini-logo.jpg');float:left;"></div>
+            </mat-card-header>
+            <img mat-card-image src = "/assets/img/{{a.matiere.image}}" alt = "Learn HTML5">
+            <mat-card-content>
+              <p *ngIf="a.rendu; else nonsoumis" appRendu>
+                {{a.nom}}, rendu par l'élève.
+              </p>
+              <ng-template #nonsoumis>
+                <p appNonRendu>
+                  {{a.nom}}, non encore rendu par l'élève.
+                </p>
+              </ng-template>
+            </mat-card-content>
+            <mat-card-actions>
+              <a routerLink="/assignment/{{a.id}}"><button mat-button>DETAILS</button></a>
+            </mat-card-actions>
+         </mat-card>
+         <br>
+      </div>
+    </div>
+  </div>
+  </div>
+
 </main>

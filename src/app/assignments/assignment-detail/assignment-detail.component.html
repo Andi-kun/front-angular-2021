@@ -15,7 +15,7 @@
       <h3><u>Remarque</u>:  {{assignmentTransmis.remarques}}</h3>
     </mat-card-content>
     <div id="bottom">
-      <mat-checkbox #checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu(checkbox.checked)" [(ngModel)]="assignmentTransmis.rendu">
+      <mat-checkbox #checkbox *ngIf="!assignmentTransmis.rendu" (click)="openDialog()" [(ngModel)]="assignmentTransmis.rendu">
         Rendu
       </mat-checkbox>
       <nav>

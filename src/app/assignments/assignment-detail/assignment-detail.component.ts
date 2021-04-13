@@ -56,7 +56,7 @@ export class AssignmentDetailComponent implements OnInit {
             this.assignmentTransmis.rendu = true;
             const message = "Assingnement rendu!";
             const action = "Fermer";
-            this.openSnackBar(message, action);
+            this.openSnackBar(message, action); 
             // et on navigue vers la page d'accueil qui affiche la liste
             // this.router.navigate(['/home']);
           });
@@ -72,7 +72,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
 
@@ -86,21 +86,6 @@ export class AssignmentDetailComponent implements OnInit {
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       this.assignmentTransmis = assignment;
     });
-  }
-
-  onAssignmentRendu(event) {
-    // console.log(event)
-    // this.assignmentTransmis.rendu = true;
-    this.openDialog()
-    // this.assignmentsService
-    //   .updateAssignment(this.assignmentTransmis)
-    //   .subscribe((reponse) => {
-    //     console.log(reponse.message);
-    //     // et on navigue vers la page d'accueil qui affiche la liste
-    //     // this.router.navigate(['/home']);
-    //   });
-
-    //this.assignmentTransmis = null;
   }
 
   onDelete() {
