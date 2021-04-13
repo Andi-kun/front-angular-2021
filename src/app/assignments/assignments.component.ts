@@ -33,6 +33,8 @@ export class AssignmentsComponent implements OnInit {
       this.limit = +queryParams.limit || 10;
 
       this.getAssignments();
+      this.getAssignmentsNonRendu();
+      this.getAssignmentsRendu();
     });
       console.log("getAssignments() du service appelé");
   }
@@ -52,6 +54,22 @@ export class AssignmentsComponent implements OnInit {
       console.log("données reçues");
     });
   }
+
+  getAssignmentsRendu() {
+    this.assignmentsService.getAssignmentsRenduPagine(this.page, this.limit)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  getAssignmentsNonRendu() {
+    this.assignmentsService.getAssignmentsNonRenduPagine(this.page, this.limit)
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  
 
   onDeleteAssignment(event) {
     // event = l'assignment à supprimer

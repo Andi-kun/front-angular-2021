@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.authService.login(this.username,this.password).subscribe(
       result => this.router.navigate(["/home"]),
-      err => this.error = "Login ou mot de passe incorrecte"
+      err =>this.error = err.error || "Une erreur est survenue"
     );
   }
 

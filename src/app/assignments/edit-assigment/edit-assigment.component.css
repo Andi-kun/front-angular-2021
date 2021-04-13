@@ -3,3 +3,21 @@
   flex-direction: column;
   margin:5px;
 }
+.step-container{
+  display: flex;
+  flex-direction: column;
+  justify-content : center;
+  padding-right : 25%;
+  padding-left : 25%;
+}
+
+.step-btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button{
+  margin-right: 20px;
+}
+

@@ -5,7 +5,7 @@
  </button>
  <span>{{title}}</span>
  <span class="example-spacer"></span>
- <button mat-icon-button matTooltip="Peupler la base de données" aria-label="Peupler la base de données">
+ <button mat-icon-button matTooltip="Peupler la base de données" aria-label="Peupler la base de données" (click)="peuplerBD()">
    <mat-icon>drive_folder_upload</mat-icon>
  </button>
  <button mat-icon-button matTooltip="Se déconnecter" aria-label="se déconnecter" (click)="logout()" >
