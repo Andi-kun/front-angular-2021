@@ -24,8 +24,8 @@
           </button>
         </nav>
         <br>
-        <div class="example-box" *ngFor="let a of assignmentsRendu.assignments">
-            <mat-card class = "tp-card" cdkDrag>
+        <div class="example-box">
+            <mat-card class = "tp-card" *ngFor="let a of assignmentsRendu.assignments" cdkDrag>
               <mat-card-header>
                  <mat-card-title>Titre</mat-card-title>
                  <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
@@ -69,8 +69,8 @@
         </button>
       </nav>
       <br>
-      <div *ngFor="let a of assignmentsNonRendu.assignments">
-          <mat-card class = "tp-card" cdkDrag>
+      <div class="example-box">
+          <mat-card class = "tp-card" *ngFor="let a of assignmentsNonRendu.assignments"  cdkDrag>
             <mat-card-header>
                <mat-card-title>Titre</mat-card-title>
                <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
