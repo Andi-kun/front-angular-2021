@@ -1,19 +1,51 @@
 <div class="container">
   <mat-card *ngIf="assignmentTransmis">
-    <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
+    <mat-card-title>
+        {{assignmentTransmis.nom}} 
+    </mat-card-title>
     <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
+    <div class="image-matiere">
+      <h4>Matière : {{assignmentTransmis.matiere.nom}}</h4>
+    </div>
+    <div class="image-matiere">
+      <img mat-card-image mat-card-lg-image src = "/assets/img/{{assignmentTransmis.matiere.image}}" alt = "Learn HTML5">
+    </div>
+    <mat-card-content *ngIf="assignmentTransmis.rendu">
+      <h3><u>Note</u>:  <span style="color: rgb(253, 72, 72);">{{assignmentTransmis.note}}</span> / 20</h3>
+      <h3><u>Remarque</u>:  {{assignmentTransmis.remarques}}</h3>
+    </mat-card-content>
     <div id="bottom">
-      <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
+      <mat-checkbox #checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu(checkbox.checked)" [(ngModel)]="assignmentTransmis.rendu">
         Rendu
       </mat-checkbox>
       <nav>
-
           <button [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onClickEdit()">EDIT</button>
-
       </nav>
-
+      <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
 
       <button mat-stroked-button color="warn" [disabled]="!isAdmin()" (click)="onDelete()">DELETE</button>
     </div>
   </mat-card>
+  <!-- <br>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Note /20</mat-label>
+          <input matInput formControlName="note" [(ngModel)]="assignmentTransmis.note" >
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Remarques</mat-label>
+          <textarea  matInput formControlName="remarques" [(ngModel)]="assignmentTransmis.remarques"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <div id="bottom">
+        <nav>
+            <button [disabled]="!isAdmin()" mat-stroked-button>SOUMETTRE</button>
+        </nav>
+      </div>
+    </mat-card>
+  </form> -->
+
 </div>

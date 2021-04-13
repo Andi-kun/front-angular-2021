@@ -21,13 +21,15 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatBadgeModule} from '@angular/material/badge';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { NonRenduDirective } from './shared/non-rendu.directive';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
+import { NoteRemarqueDialogComponent} from './assignments/assignment-detail/note-remarque-dialog.component'
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigment.component';
@@ -89,18 +91,20 @@ const routes:Routes = [
     AddAssignmentComponent,
     EditAssigmentComponent,
     LoginComponent,
-    MenuComponent
+    MenuComponent,
+    NoteRemarqueDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule, MatDividerModule, MatIconModule,
+    MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatBadgeModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,MatGridListModule,
     MatSlideToggleModule,MatStepperModule,MatSelectModule,MatToolbarModule,MatTooltipModule,
     MatSnackBarModule,
+    MatDialogModule,
     RouterModule.forRoot(routes), HttpClientModule,
     JwtModule.forRoot({
       config: {
