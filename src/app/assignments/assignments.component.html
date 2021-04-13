@@ -24,8 +24,8 @@
           </button>
         </nav>
         <br>
-        <div class="example-box" *ngFor="let a of assignmentsRendu.assignments">
-            <mat-card class = "tp-card" cdkDrag>
+        <div class="example-box" >
+            <mat-card class = "tp-card" *ngFor="let a of assignmentsRendu.assignments">
               <mat-card-header>
                  <mat-card-title>Titre</mat-card-title>
                  <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
@@ -69,12 +69,12 @@
         </button>
       </nav>
       <br>
-      <div *ngFor="let a of assignmentsNonRendu.assignments">
-          <mat-card class = "tp-card" cdkDrag>
+      <div>
+          <mat-card class = "tp-card" *ngFor="let a of assignmentsNonRendu.assignments">
             <mat-card-header>
                <mat-card-title>Titre</mat-card-title>
                <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
-               <div mat-card-avatar class = "tp-header-image" style="background-image: url('https://www.tutorialspoint.com/materialize/src/html5-mini-logo.jpg');float:left;"></div>
+               <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{a.matiere.imageProfesseur}}');float:left;"></div>
             </mat-card-header>
             <img mat-card-image src = "/assets/img/{{a.matiere.image}}" alt = "Learn HTML5">
             <mat-card-content>
