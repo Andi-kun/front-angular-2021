@@ -8,6 +8,7 @@ import { assignmentsGeneres } from './data';
 import { environment } from '../../environments/environment';
 import { ElevesService } from './eleves.service';
 import { MatieresService } from './matieres.service';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Injectable({
   providedIn: 'root'

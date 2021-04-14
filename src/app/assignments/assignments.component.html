@@ -6,50 +6,7 @@
   </a>
   <h1 id="color-h1">Liste des assignments</h1>
   <div class="box">
-    <div class="example-container">
-      <h2>Rendu</h2>
-      <div class="example-list">
-        <nav>
-          <button mat-raised-button color="primary" (click)="premierePageRendu(this.assignmentsRendu)">
-            Première
-          </button>
-          <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="pagePrecedenteRendu(this.assignmentsRendu)">
-            Prev
-          </button>
-          <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="pageSuivanteRendu(this.assignmentsRendu)">
-            Suiv
-          </button>
-          <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="dernierePageRendu(this.assignmentsRendu)">
-            Dernière
-          </button>
-        </nav>
-        <br>
-        <div class="example-box">
-            <mat-card class = "tp-card" *ngFor="let a of assignmentsRendu.assignments" cdkDrag>
-              <mat-card-header>
-                 <mat-card-title>Titre</mat-card-title>
-                 <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
-                 <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{a.matiere.imageProfesseur}}');float:left;"></div>
-              </mat-card-header>
-              <img mat-card-image src = "/assets/img/{{a.matiere.image}}" alt = "Learn HTML5">
-              <mat-card-content>
-                <p *ngIf="a.rendu; else nonsoumis" appRendu>
-                  {{a.nom}}, rendu par l'élève.
-                </p>
-                <ng-template #nonsoumis>
-                  <p appNonRendu>
-                    {{a.nom}}, non encore rendu par l'élève.
-                  </p>
-                </ng-template>
-              </mat-card-content>
-              <mat-card-actions>
-                <a routerLink="/assignment/{{a.id}}"><button mat-button>DETAILS</button></a>
-              </mat-card-actions>
-           </mat-card>
-           <br>
-        </div>
-      </div>
-  </div>
+    
 
   <div class="example-container">
     <h2>Non rendu</h2>
@@ -69,8 +26,8 @@
         </button>
       </nav>
       <br>
-      <div class="example-box">
-          <mat-card class = "tp-card" *ngFor="let a of assignmentsNonRendu.assignments"  cdkDrag>
+      <div class="example-box" cdkDropList #listNonRendu="cdkDropList" [cdkDropListData]="assignmentsNonRendu.assignments" [cdkDropListConnectedTo]="[listRendu]" (cdkDropListDropped)="drop($event)">
+          <mat-card class = "tp-card" [cdkDragData]="a" *ngFor="let a of assignmentsNonRendu.assignments"  cdkDrag>
             <mat-card-header>
                <mat-card-title>Titre</mat-card-title>
                <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
@@ -95,6 +52,50 @@
       </div>
     </div>
   </div>
+  <div class="example-container">
+    <h2>Rendu</h2>
+    <div class="example-list">
+      <nav>
+        <button mat-raised-button color="primary" (click)="premierePageRendu(this.assignmentsRendu)">
+          Première
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="pagePrecedenteRendu(this.assignmentsRendu)">
+          Prev
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="pageSuivanteRendu(this.assignmentsRendu)">
+          Suiv
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="dernierePageRendu(this.assignmentsRendu)">
+          Dernière
+        </button>
+      </nav>
+      <br>
+      <div class="example-box" cdkDropList #listRendu="cdkDropList" [cdkDropListData]="assignmentsRendu.assignments" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[listNonRendu]">
+          <mat-card class = "tp-card" [cdkDragData]="a" *ngFor="let a of assignmentsRendu.assignments" cdkDrag>
+            <mat-card-header>
+               <mat-card-title>Titre</mat-card-title>
+               <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
+               <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{a.matiere.imageProfesseur}}');float:left;"></div>
+            </mat-card-header>
+            <img mat-card-image src = "/assets/img/{{a.matiere.image}}" alt = "Learn HTML5">
+            <mat-card-content>
+              <p *ngIf="a.rendu; else nonsoumis" appRendu>
+                {{a.nom}}, rendu par l'élève.
+              </p>
+              <ng-template #nonsoumis>
+                <p appNonRendu>
+                  {{a.nom}}, non encore rendu par l'élève.
+                </p>
+              </ng-template>
+            </mat-card-content>
+            <mat-card-actions>
+              <a routerLink="/assignment/{{a.id}}"><button mat-button>DETAILS</button></a>
+            </mat-card-actions>
+         </mat-card>
+         <br>
+      </div>
+    </div>
+</div>
   </div>
 
 </main>
