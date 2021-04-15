@@ -1,5 +1,5 @@
 # AssignmentApp
-Une application web de gestion de devoir.
+Une application web de gestion de devoirs.
 * **Url heroku** : https://front-angular-2021.herokuapp.com/
 * **Login admin** : admin / admin
 * **Login modérateur** : modo / modo
