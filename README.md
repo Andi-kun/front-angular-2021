@@ -10,7 +10,7 @@ Une application web de gestion de devoir.
 
 ## Fonctionnalités
 1. Gestion de login/password avec Json Web Tokens (JWT) et gestion du cas particulier admin
-2. Ajout des collections Matières et Elèves
+2. Ajout des collections Users, Matières et Elèves
 3. Création d'un nouveau devoir avec un formulaire de type stepper avec :
 * choix de la matière
 * choix de l'élève
