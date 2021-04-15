@@ -1,8 +1,8 @@
 # AssignmentApp
-Une application de gestion de devoir.
-* url heroku : https://front-angular-2021.herokuapp.com/
-* **login admin** : admin / admin
-* **login moderateur** : modo / modo
+Une application web de gestion de devoir.
+* **Url heroku** : https://front-angular-2021.herokuapp.com/
+* **Login admin** : admin / admin
+* **Login moderateur** : modo / modo
 
 ## Membre du groupe
 * RASOANAIVO Ny Toky Andi n°47
@@ -22,7 +22,7 @@ Une application de gestion de devoir.
 
 ## Pour lancer ce projet chez vous 
 
-* Cloner ce projet et le projet back end : 
+* Cloner ce projet et le projet back end : https://github.com/Andi-kun/back-node-2021
 * Effectuer un `npm install` dans les répertoires des 2 projets
 * Lancer le projet back end avec la commande : `node server.js`
 * Lancer le projet front end avec la commande : `ng serve`
