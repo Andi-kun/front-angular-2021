@@ -4,7 +4,7 @@ Une application web de gestion de devoir.
 * **Login admin** : admin / admin
 * **Login modérateur** : modo / modo
 
-## Membre du groupe
+## Membres du groupe
 * RASOANAIVO Ny Toky Andi n°47
 * RAMANANTSALAMA Anthony Tiana  n°31
 
