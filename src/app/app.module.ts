@@ -24,6 +24,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -105,7 +107,7 @@ const routes:Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatBadgeModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,MatGridListModule,
     MatSlideToggleModule,MatStepperModule,MatSelectModule,MatToolbarModule,MatTooltipModule,
-    MatSnackBarModule,
+    MatSnackBarModule,MatChipsModule,
     MatDialogModule,
     RouterModule.forRoot(routes), HttpClientModule,
     JwtModule.forRoot({
