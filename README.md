@@ -30,3 +30,4 @@ Une application web de gestion de devoir.
 
 ## Sources 
 * JWT : https://www.section.io/engineering-education/getting-started-with-jwt-using-angular8-and-nodejs/
+* Composants Angular Material : https://material.angular.io/components/
