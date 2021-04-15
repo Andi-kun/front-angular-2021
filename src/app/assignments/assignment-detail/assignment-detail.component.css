@@ -15,3 +15,8 @@
   justify-content: center;
   align-items: flex-end;
 }
+
+.tp-header-image {
+  /* background-image: url('https://www.tutorialspoint.com/materialize/src/html5-mini-logo.jpg'); */
+  background-size: cover;
+}

@@ -65,7 +65,7 @@ export class AddAssignmentComponent implements OnInit {
     this.assignmentsService.addAssignment(nouvelAssignment)
       .subscribe(reponse => {
         console.log(reponse.message);
-        this.snackBarService.openSuccessSnackBar("Devoir crée !");
+        this.snackBarService.openSuccessSnackBar("Devoir créé !");
          // et on navigue vers la page d'accueil qui affiche la liste
          this.router.navigate(["/home"]);
       });

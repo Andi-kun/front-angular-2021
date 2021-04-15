@@ -1,9 +1,12 @@
 <div class="container">
   <mat-card *ngIf="assignmentTransmis">
-    <mat-card-title>
-        {{assignmentTransmis.nom}} 
-    </mat-card-title>
-    <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
+    <mat-card-header>
+      <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{assignmentTransmis.matiere.imageProfesseur}}');float:left;"></div>
+      <mat-card-title>
+          {{assignmentTransmis.nom}} 
+      </mat-card-title>
+      <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date}}</mat-card-subtitle>
+  </mat-card-header>
     <div class="image-matiere">
       <h4>Matière : {{assignmentTransmis.matiere.nom}}</h4>
     </div>
