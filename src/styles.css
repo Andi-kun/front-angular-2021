@@ -10,3 +10,12 @@ body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 .snackbar-success-style .mat-simple-snackbar-action  {
   color: white;
 }
+
+.snackbar-error-style{
+  background-color:#a03014;
+  color:white;
+}
+
+.snackbar-error-style .mat-simple-snackbar-action  {
+color: white;
+}

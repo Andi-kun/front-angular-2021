@@ -21,4 +21,18 @@ export class SnackBarService {
       snackbar.dismiss();
     });
  }
+
+ openErrorSnackBar(message: string) {
+  let snackbar = this._snackBar.open(message, "Fermer", {
+     duration: this.durationInSeconds * 1000,
+     verticalPosition: 'bottom',
+     horizontalPosition: 'center',
+     panelClass: ["snackbar-error-style"]
+  });
+
+  snackbar.onAction().subscribe(() => {
+    snackbar.dismiss();
+  });
+}
+
 }
