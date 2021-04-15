@@ -3,6 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse
 import { catchError, filter, take, switchMap } from "rxjs/operators";
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { AuthService } from './auth.service';
 
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log("Interception In Progress"); 
@@ -26,7 +27,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                 if (error && error.status === 401) {
                     console.log("ERROR 401 UNAUTHORIZED");
                     this.authService.logout();
-                    location.reload(true);
+                    this.router.navigate(['login']);
                 }
                 const err = error.error.message || error.statusText;
                 return throwError(error);                  

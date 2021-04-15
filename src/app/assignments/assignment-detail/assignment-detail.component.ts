@@ -7,6 +7,7 @@ import { Assignment } from '../assignment.model';
 import { NoteRemarqueDialogComponent} from './note-remarque-dialog.component'
 import { MatDialog} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class AssignmentDetailComponent implements OnInit {
     private router: Router,
     private authService:AuthService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private snackBarService :SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -36,44 +37,44 @@ export class AssignmentDetailComponent implements OnInit {
     // this.initForm();
 
   }
-  openDialog(): void {
-    const dialogRef = this.dialog.open(NoteRemarqueDialogComponent, {
-      width: '250px',
-      data: {name: this.note, animal: this.remarques}
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Le dialog d\'ajout de note se ferme !');
-      // this.note = result;
-      if(result) {
-        console.log(result);
-        this.assignmentTransmis.note = result.note;
-        this.assignmentTransmis.remarques = result.remarques;
-        this.assignmentsService
-          .updateAssignment(this.assignmentTransmis)
-          .subscribe((reponse) => {
-            console.log(reponse.message);
-            this.assignmentTransmis.rendu = true;
-            const message = "Assingnement rendu!";
-            const action = "Fermer";
-            this.openSnackBar(message, action); 
-            // et on navigue vers la page d'accueil qui affiche la liste
-            // this.router.navigate(['/home']);
-          });
-
-        // this.assignmentTransmis = null;
-      }
-      else{
-        this.assignmentTransmis.rendu = false;
-      }
-    
-    });
+  updateAssignment() : void {
+    this.assignmentsService
+            .updateAssignment(this.assignmentTransmis)
+            .subscribe((reponse) => {
+              console.log(reponse.message);
+              const message = "Assingnement modifié !";
+              this.snackBarService.openSuccessSnackBar(message); 
+            });
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3000,
-    });
+  updateRendu(): void {
+    console.log("rendre");
+    console.log(this.assignmentTransmis.rendu);
+    if(!this.assignmentTransmis.note){
+      const dialogRef = this.dialog.open(NoteRemarqueDialogComponent, {
+        width: '250px',
+        data: {note: this.note, remarques : this.remarques}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('Le dialog d\'ajout de note se ferme !');
+        // this.note = result;
+        if(result) {
+          console.log(result);
+          this.assignmentTransmis.rendu = true;
+          this.assignmentTransmis.note = result.note;
+          this.assignmentTransmis.remarques = result.remarques;
+          this.updateAssignment();
+        }
+        else{
+          this.assignmentTransmis.rendu = false;
+        }
+      });
+    }
+    else{
+      this.updateAssignment();
+    }
   }
 
 
@@ -84,6 +85,7 @@ export class AssignmentDetailComponent implements OnInit {
 
     console.log('Dans ngOnInit de details, id = ' + id);
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+      console.log(assignment);
       this.assignmentTransmis = assignment;
     });
   }

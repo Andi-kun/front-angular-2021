@@ -33,7 +33,7 @@ export class AuthService {
     let token = localStorage.getItem('access_token');
     if(token){
       let user = this.jwtHelper.decodeToken(token);
-      console.log(user.role);
+      //console.log(user.role);
       if(user.role === "admin") return true;
     }
     return false;

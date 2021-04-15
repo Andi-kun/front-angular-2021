@@ -4,6 +4,9 @@ import { AssignmentPaginate } from '../shared/AssignmentPaginate.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Assignment } from './assignment.model';
+import { SnackBarService } from '../shared/snack-bar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NoteRemarqueDialogComponent } from './assignment-detail/note-remarque-dialog.component';
 
 @Component({
   selector: 'app-assignments',
@@ -28,7 +31,10 @@ export class AssignmentsComponent implements OnInit {
   // on injecte le service de gestion des assignments
   constructor(private assignmentsService:AssignmentsService,
               private route:ActivatedRoute,
-              private router:Router) {}
+              private router:Router,
+              private snackBarService :SnackBarService,
+              public dialog: MatDialog
+              ) {}
 
   ngOnInit() {
     console.log('AVANT AFFICHAGE');
@@ -111,89 +117,164 @@ export class AssignmentsComponent implements OnInit {
     //   })
   }
 
-  premierePageRendu(assignment) {
+  premierePageRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
         pageRendu:1,
-        limitRendu:assignment.limit,
-
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.page,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
-  premierePageNonRendu(assignment) {
+  premierePageNonRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageNonRendu:1,
-        limitNonRendu:assignment.limit,
-        
+        pageRendu: this.assignmentsRendu.page,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : 1,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
 
-  pageSuivanteRendu(assignment) {
+  pageSuivanteRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageRendu:assignment.nextPage,
-        limitRendu:assignment.limit,
+        pageRendu: this.assignmentsRendu.nextPage,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.page,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
-  pageSuivanteNonRendu(assignment) {
+
+  pageSuivanteNonRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageNonRendu:assignment.nextPage,
-        limitNonRendu:assignment.limit,
+        pageRendu: this.assignmentsRendu.page,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.nextPage,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
 
 
-  pagePrecedenteRendu(assignment) {
+  pagePrecedenteRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageRendu:assignment.prevPage,
-        limitRendu:assignment.limit,
+        pageRendu: this.assignmentsRendu.prevPage,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.page,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
 
-  pagePrecedenteNonRendu(assignment) {
+  pagePrecedenteNonRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageNonRendu:assignment.prevPage,
-        limitNonRendu:assignment.limit,
+        pageRendu: this.assignmentsRendu.page,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.prevPage,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
 
-  dernierePageRendu(assignment) {
+  dernierePageRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageRendu:assignment.totalPages,
-        limitRendu:assignment.limit,
+        pageRendu: this.assignmentsRendu.totalPages,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.page,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
 
-  dernierePageNonRendu(assignment) {
+  dernierePageNonRendu() {
     this.router.navigate(['/home'], {
       queryParams: {
-        pageNonRendu:assignment.totalPages,
-        limitNonRendu:assignment.limit,
+        pageRendu: this.assignmentsRendu.page,
+        limitRendu: this.assignmentsRendu.limit,
+        pageNonRendu : this.assignmentsNonRendu.totalPages,
+        limitNonRendu: this.assignmentsNonRendu.limit,
       }
     });
   }
-
   
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
+  updateAssignment(assignment : Assignment, previousList, currentList,previousIndex,currentIndex){
+    this.assignmentsService
+            .updateAssignment(assignment)
+            .subscribe((reponse) => {
+              transferArrayItem(previousList,
+                currentList,
+                previousIndex,
+                currentIndex);
+              console.log(reponse.message);
+              const isRendu = assignment.rendu ? "rendu" : "non rendu";
+              const message = "Assignment "+isRendu+" !";
+              this.snackBarService.openSuccessSnackBar(message); 
+            });
   }
+
+
+  dropRendu(event: CdkDragDrop<string[]>) {
+    let droppedAssignment = event.item.data;
+    
+    if(droppedAssignment.rendu){
+      return;
+    }
+
+    if(!droppedAssignment.note){
+      const dialogRef = this.dialog.open(NoteRemarqueDialogComponent, {
+        width: '250px',
+        data: {note: droppedAssignment.note, remarques : droppedAssignment.remarques}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('Le dialog d\'ajout de note se ferme !');
+        // this.note = result;
+        if(result) {
+          console.log(result);
+          droppedAssignment.rendu = true;
+          droppedAssignment.note = result.note;
+          droppedAssignment.remarques = result.remarques;
+          this.updateAssignment(droppedAssignment,
+            event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex);
+        }
+      });
+    }
+    else{
+      droppedAssignment.rendu = true;
+      this.updateAssignment(droppedAssignment,
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+    
+  }
+
+  dropNonRendu(event: CdkDragDrop<string[]>){
+    let droppedAssignment = event.item.data;
+    console.log(droppedAssignment);
+
+    if(!droppedAssignment.rendu){
+      return;
+    }
+
+    droppedAssignment.rendu = false;
+    this.updateAssignment(droppedAssignment,
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex);
+    }
 }
 

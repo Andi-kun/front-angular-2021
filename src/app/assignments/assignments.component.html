@@ -12,24 +12,24 @@
     <h2>Non rendu</h2>
     <div class="example-list">
       <nav>
-        <button mat-raised-button color="primary" (click)="premierePageNonRendu(this.assignmentsNonRendu)">
+        <button mat-raised-button color="primary" (click)="premierePageNonRendu()">
           Première
         </button>
-        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasPrevPage" (click)="pagePrecedenteNonRendu(this.assignmentsNonRendu)">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasPrevPage" (click)="pagePrecedenteNonRendu()">
           Prev
         </button>
-        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasNextPage" (click)="pageSuivanteNonRendu(this.assignmentsNonRendu)">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasNextPage" (click)="pageSuivanteNonRendu()">
           Suiv
         </button>
-        <button mat-raised-button color="primary" (click)="dernierePageNonRendu(this.assignmentsNonRendu)">
+        <button mat-raised-button color="primary" (click)="dernierePageNonRendu()">
           Dernière
         </button>
       </nav>
       <br>
-      <div class="example-box" cdkDropList #listNonRendu="cdkDropList" [cdkDropListData]="assignmentsNonRendu.assignments" [cdkDropListConnectedTo]="[listRendu]" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" cdkDropList cdkDropListSortingDisabled #listNonRendu="cdkDropList" [cdkDropListData]="assignmentsNonRendu.assignments" [cdkDropListConnectedTo]="[listRendu]" (cdkDropListDropped)="dropNonRendu($event)">
           <mat-card class = "tp-card" [cdkDragData]="a" *ngFor="let a of assignmentsNonRendu.assignments"  cdkDrag>
             <mat-card-header>
-               <mat-card-title>Titre</mat-card-title>
+               <mat-card-title>{{a.nom}}</mat-card-title>
                <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
                <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{a.matiere.imageProfesseur}}');float:left;"></div>
             </mat-card-header>
@@ -56,24 +56,24 @@
     <h2>Rendu</h2>
     <div class="example-list">
       <nav>
-        <button mat-raised-button color="primary" (click)="premierePageRendu(this.assignmentsRendu)">
+        <button mat-raised-button color="primary" (click)="premierePageRendu()">
           Première
         </button>
-        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="pagePrecedenteRendu(this.assignmentsRendu)">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="pagePrecedenteRendu()">
           Prev
         </button>
-        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="pageSuivanteRendu(this.assignmentsRendu)">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="pageSuivanteRendu()">
           Suiv
         </button>
-        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="dernierePageRendu(this.assignmentsRendu)">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasNextPage" (click)="dernierePageRendu()">
           Dernière
         </button>
       </nav>
       <br>
-      <div class="example-box" cdkDropList #listRendu="cdkDropList" [cdkDropListData]="assignmentsRendu.assignments" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[listNonRendu]">
+      <div class="example-box" cdkDropList cdkDropListSortingDisabled #listRendu="cdkDropList" [cdkDropListData]="assignmentsRendu.assignments" (cdkDropListDropped)="dropRendu($event)" [cdkDropListConnectedTo]="[listNonRendu]">
           <mat-card class = "tp-card" [cdkDragData]="a" *ngFor="let a of assignmentsRendu.assignments" cdkDrag>
             <mat-card-header>
-               <mat-card-title>Titre</mat-card-title>
+               <mat-card-title>{{a.nom}}</mat-card-title>
                <mat-card-subtitle>{{a.dateDeRendu | date}}</mat-card-subtitle>
                <div mat-card-avatar class = "tp-header-image" style="background-image: url('/assets/img/{{a.matiere.imageProfesseur}}');float:left;"></div>
             </mat-card-header>

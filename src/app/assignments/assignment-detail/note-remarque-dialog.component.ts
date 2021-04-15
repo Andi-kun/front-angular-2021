@@ -25,7 +25,7 @@ export class NoteRemarqueDialogComponent implements OnInit {
     }
 
     onNoClick(): void {
-        this.dialogRef.close(this.userForm.value);
+        this.dialogRef.close();
     }
 
     initForm() {

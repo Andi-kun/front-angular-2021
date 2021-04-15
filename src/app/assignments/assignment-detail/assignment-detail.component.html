@@ -10,12 +10,12 @@
     <div class="image-matiere">
       <img mat-card-image mat-card-lg-image src = "/assets/img/{{assignmentTransmis.matiere.image}}" alt = "Learn HTML5">
     </div>
-    <mat-card-content *ngIf="assignmentTransmis.rendu">
+    <mat-card-content *ngIf="assignmentTransmis.note" >
       <h3><u>Note</u>:  <span style="color: rgb(253, 72, 72);">{{assignmentTransmis.note}}</span> / 20</h3>
-      <h3><u>Remarque</u>:  {{assignmentTransmis.remarques}}</h3>
+      <h3><u>Remarque</u>:  {{assignmentTransmis.remarques || "Aucune"}}</h3>
     </mat-card-content>
     <div id="bottom">
-      <mat-checkbox #checkbox *ngIf="!assignmentTransmis.rendu" (click)="openDialog()" [(ngModel)]="assignmentTransmis.rendu">
+      <mat-checkbox #checkbox  (change)="updateRendu()" [(ngModel)]="assignmentTransmis.rendu">
         Rendu
       </mat-checkbox>
       <nav>
