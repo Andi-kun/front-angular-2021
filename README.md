@@ -15,7 +15,7 @@ Une application de gestion de devoir.
 * choix de l'élève
 3. Modification et suppression d'un devoir
 4. Liste des devoirs paginée divisé en 2 onglets selon qu'ils ont été rendus ou pas encore rendus
-5. Drag and drop entre les 2 onglets pour faire passer un devoir du statut rendu ou non rendu (avec déclenchement de la notation s'il n'y a pas encore de note pour le statut rendu)
+5. Drag and drop entre les 2 onglets pour faire passer un devoir du statut non rendu à rendu ou l'inverse (avec déclenchement de la notation s'il n'y a pas encore de note pour le statut rendu)
 6. Bouton pour peupler la base de données avec 500 devoirs
 7. Affichage d'un snack bar pour les messages de succès
 
