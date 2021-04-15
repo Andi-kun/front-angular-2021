@@ -12,7 +12,7 @@
     <h2>Non rendu</h2>
     <div class="example-list">
       <nav>
-        <button mat-raised-button color="primary" (click)="premierePageNonRendu()">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasPrevPage" (click)="premierePageNonRendu()">
           Première
         </button>
         <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasPrevPage" (click)="pagePrecedenteNonRendu()">
@@ -21,7 +21,7 @@
         <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasNextPage" (click)="pageSuivanteNonRendu()">
           Suiv
         </button>
-        <button mat-raised-button color="primary" (click)="dernierePageNonRendu()">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsNonRendu.hasNextPage" (click)="dernierePageNonRendu()">
           Dernière
         </button>
       </nav>
@@ -57,7 +57,7 @@
     <h2>Rendu</h2>
     <div class="example-list">
       <nav>
-        <button mat-raised-button color="primary" (click)="premierePageRendu()">
+        <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="premierePageRendu()">
           Première
         </button>
         <button mat-raised-button color="primary" [disabled]="!this.assignmentsRendu.hasPrevPage" (click)="pagePrecedenteRendu()">
