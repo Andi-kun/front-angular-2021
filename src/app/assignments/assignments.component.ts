@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentPaginate } from '../shared/AssignmentPaginate.model';
+import { AssignmentPaginate } from '../shared/assignmentPaginate.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Assignment } from './assignment.model';
