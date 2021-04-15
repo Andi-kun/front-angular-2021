@@ -2,7 +2,7 @@
 Une application web de gestion de devoir.
 * **Url heroku** : https://front-angular-2021.herokuapp.com/
 * **Login admin** : admin / admin
-* **Login moderateur** : modo / modo
+* **Login modérateur** : modo / modo
 
 ## Membre du groupe
 * RASOANAIVO Ny Toky Andi n°47
@@ -15,10 +15,12 @@ Une application web de gestion de devoir.
 * choix de la matière
 * choix de l'élève
 4. Modification et suppression d'un devoir
-5. Liste des devoirs paginée divisé en 2 onglets selon qu'ils ont été rendus ou pas encore rendus
-6. Drag and drop entre les 2 onglets pour faire passer un devoir du statut non rendu à rendu ou l'inverse (avec déclenchement de la notation s'il n'y a pas encore de note pour le statut rendu)
-7. Bouton pour peupler la base de données avec 500 devoirs
-8. Affichage d'un snack bar pour les messages de succès
+5. Possibilité d'ajouter une note et/ou une remarque à un devoir lorsqu'on le met comme rendu ou lorsqu'on le modifie
+6. Liste des devoirs paginée divisé en 2 onglets selon qu'ils ont été rendus ou pas encore rendus
+7. Drag and drop entre les 2 onglets pour faire passer un devoir du statut non rendu à rendu ou l'inverse (avec déclenchement de la notation s'il n'y a pas encore de note pour le statut rendu)
+8. Bouton pour peupler la base de données avec 500 devoirs
+9. Affichage d'un snack bar pour les messages de succès
+10. Amélioration de l'affichage de l'application
 
 ## Pour lancer ce projet chez vous 
 
