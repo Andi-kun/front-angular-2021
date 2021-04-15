@@ -25,6 +25,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 
 import { AssignmentsComponent } from './assignments/assignments.component';
@@ -107,8 +109,8 @@ const routes:Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatBadgeModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,MatGridListModule,
     MatSlideToggleModule,MatStepperModule,MatSelectModule,MatToolbarModule,MatTooltipModule,
-    MatSnackBarModule,MatChipsModule,
-    MatDialogModule,
+    MatSnackBarModule,MatChipsModule,MatProgressSpinnerModule,
+    MatDialogModule,NgHttpLoaderModule.forRoot(),
     RouterModule.forRoot(routes), HttpClientModule,
     JwtModule.forRoot({
       config: {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { catchError, filter, map, tap } from 'rxjs/operators';
-
+import { Spinkit } from 'ng-http-loader';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +9,7 @@ import { catchError, filter, map, tap } from 'rxjs/operators';
 })
 export class AppComponent {
   showMenu = true;
+  spinnerStyle = Spinkit;
   constructor(private router: Router) {}
 
   ngOnInit(): void {

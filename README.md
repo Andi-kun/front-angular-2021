@@ -16,11 +16,12 @@ Une application web de gestion de devoir.
 * choix de l'élève
 4. Modification et suppression d'un devoir
 5. Possibilité d'ajouter une note et/ou une remarque à un devoir lorsqu'on le met comme rendu ou lorsqu'on le modifie
-6. Liste des devoirs paginée divisé en 2 onglets selon qu'ils ont été rendus ou pas encore rendus
+6. Liste des devoirs paginée divisée en 2 onglets selon qu'ils ont été rendus ou pas encore rendus
 7. Drag and drop entre les 2 onglets pour faire passer un devoir du statut non rendu à rendu ou l'inverse (avec déclenchement de la notation s'il n'y a pas encore de note pour le statut rendu)
 8. Bouton pour peupler la base de données avec 500 devoirs
 9. Affichage d'un snack bar pour les messages de succès
 10. Amélioration de l'affichage de l'application
+11. Ajout d'un loader
 
 ## Pour lancer ce projet chez vous 
 
@@ -33,3 +34,4 @@ Une application web de gestion de devoir.
 ## Sources 
 * JWT : https://www.section.io/engineering-education/getting-started-with-jwt-using-angular8-and-nodejs/
 * Composants Angular Material : https://material.angular.io/components/
+* Loader : https://www.freakyjolly.com/angular-http-spinner-loader-using-ng-http-loader-tutorial-by-example/
